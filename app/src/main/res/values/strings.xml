@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CinemaTMDB</string>
+    <string name="popular">Popular</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="transition_poster">poster_transition</string>
+    <string name="overview">Overview</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
