@@ -1,4 +1,4 @@
-package usecases
+package com.example.domain
 
 import entities.MovieEntity
 import entities.Optional
