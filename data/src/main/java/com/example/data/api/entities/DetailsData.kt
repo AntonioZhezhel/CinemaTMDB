@@ -1,7 +1,6 @@
 package com.example.data.api.entities
 
 import com.example.data.api.api.ReviewsResult
-import com.example.data.api.api.VideoResult
 import com.google.gson.annotations.SerializedName
 
 data class DetailsData (
@@ -13,9 +12,6 @@ data class DetailsData (
 
     @SerializedName("genres")
     var genres: List<GenreData>? = null,
-
-    @SerializedName("videos")
-    var videos: VideoResult? = null,
 
     @SerializedName("reviews")
     var reviews: ReviewsResult? = null,
