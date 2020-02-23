@@ -4,6 +4,9 @@
     <string name="my_favorites">My Favorites</string>
     <string name="transition_poster">poster_transition</string>
     <string name="overview">Overview</string>
+    <string name="api_base_url">https://api.themoviedb.org/3/</string>
+    <string name="transition_title">title_transition</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
