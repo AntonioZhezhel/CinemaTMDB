@@ -12,4 +12,5 @@ interface MoviesCache {
     fun get(movieId: Int): Observable<Optional<MovieEntity>>
     fun search(query: String): Observable<List<MovieEntity>>
     fun isEmpty(): Observable<Boolean>
+    fun clear()
 }
