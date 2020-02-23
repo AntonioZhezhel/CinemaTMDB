@@ -3,6 +3,8 @@ package com.example.cinematmdb.common
 import android.app.Application
 import com.example.cinematmdb.R
 import com.example.cinematmdb.di.MainComponent
+import com.example.cinematmdb.di.details.MovieDetailsModule
+import com.example.cinematmdb.di.details.MovieDetailsSubComponent
 import com.example.cinematmdb.di.modules.AppModule
 import com.example.cinematmdb.di.modules.DataModule
 import com.example.cinematmdb.di.modules.NetworkModule
@@ -14,7 +16,7 @@ class App: Application() {
 
     lateinit var mainComponent: MainComponent
     private var popularMoviesComponent: PopularSubComponent? = null
-
+    private var movieDetailsComponent: MovieDetailsSubComponent? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -43,6 +45,11 @@ class App: Application() {
     fun releasePopularComponent() {
         popularMoviesComponent = null
     }
-
-
+    fun createDetailsComponent(): MovieDetailsSubComponent {
+        movieDetailsComponent = mainComponent.plus(MovieDetailsModule())
+        return movieDetailsComponent!!
+    }
+    fun releaseDetailsComponent() {
+        movieDetailsComponent = null
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.cinematmdb.di
 
+import com.example.cinematmdb.di.details.MovieDetailsModule
+import com.example.cinematmdb.di.details.MovieDetailsSubComponent
 import com.example.cinematmdb.di.modules.AppModule
 import com.example.cinematmdb.di.modules.DataModule
 import com.example.cinematmdb.di.modules.NetworkModule
@@ -17,5 +19,6 @@ import javax.inject.Singleton
 
 interface MainComponent {
     fun plus(popularMoviesModule: PopularMoviesModule): PopularSubComponent
+    fun plus(movieDetailsModule: MovieDetailsModule): MovieDetailsSubComponent
 
 }
