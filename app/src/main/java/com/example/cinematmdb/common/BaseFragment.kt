@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.cinematmdb.R
+import com.example.cinematmdb.detalis.MovieDetailsActivity
 import com.example.cinematmdb.entities.Movie
 
 open class BaseFragment: Fragment() {
@@ -19,10 +20,11 @@ open class BaseFragment: Fragment() {
             val posterSharedElement: Pair<View, String> = Pair.create(it, getString(R.string.transition_poster))
             activityOptions = ActivityOptions.makeSceneTransitionAnimation(activity, posterSharedElement)
         }
-//        startActivity(MovieDetailsActivity.newIntent(
-//            context!!,
-//            movie.id,
-//            movie.posterPath), activityOptions?.toBundle())
+        startActivity(
+            MovieDetailsActivity.newIntent(
+            context!!,
+            movie.id,
+            movie.posterPath), activityOptions?.toBundle())
 
         activity?.overridePendingTransition(0, 0)
     }

@@ -16,7 +16,6 @@ class DetailsDataMovieEntityMapper @Inject constructor() : Mapper<DetailsData, M
         val movieEntity = MovieEntity(
             id = from.id,
             voteCount = from.voteCount,
-            video = from.video,
             voteAverage = from.voteAverage,
             popularity = from.popularity,
             adult = from.adult,

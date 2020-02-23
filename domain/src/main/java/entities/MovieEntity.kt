@@ -3,7 +3,6 @@ package entities
 data class MovieEntity(
     var id: Int = 0,
     var voteCount: Int = 0,
-    var video: Boolean = false,
     var voteAverage: Double = 0.0,
     var popularity: Double = 0.0,
     var adult: Boolean = false,

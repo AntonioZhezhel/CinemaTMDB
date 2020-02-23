@@ -5,6 +5,8 @@ import com.example.cinematmdb.R
 import com.example.cinematmdb.di.MainComponent
 import com.example.cinematmdb.di.details.MovieDetailsModule
 import com.example.cinematmdb.di.details.MovieDetailsSubComponent
+import com.example.cinematmdb.di.favorites.FavoriteModule
+import com.example.cinematmdb.di.favorites.FavoritesSubComponent
 import com.example.cinematmdb.di.modules.AppModule
 import com.example.cinematmdb.di.modules.DataModule
 import com.example.cinematmdb.di.modules.NetworkModule
@@ -17,6 +19,8 @@ class App: Application() {
     lateinit var mainComponent: MainComponent
     private var popularMoviesComponent: PopularSubComponent? = null
     private var movieDetailsComponent: MovieDetailsSubComponent? = null
+    private var favoriteMoviesComponent: FavoritesSubComponent? = null
+
 
     override fun onCreate() {
         super.onCreate()
@@ -26,17 +30,17 @@ class App: Application() {
         }
         LeakCanary.install(this)
 
-      //  initDependencies()
+        initDependencies()
     }
 
-//    private fun initDependencies() {
-//        mainComponent = DaggerMainComponent.builder()
-//            .appModule(AppModule(applicationContext))
-//            .networkModule(NetworkModule(getString(R.string.api_base_url), getString(R.string.api_key)))
-//            .dataModule(DataModule())
-//            .build()
-//
-//    }
+    private fun initDependencies() {
+        mainComponent = DaggerMainComponent.builder()
+            .appModule(AppModule(applicationContext))
+            .networkModule(NetworkModule(getString(R.string.api_base_url), getString(R.string.api_key)))
+            .dataModule(DataModule())
+            .build()
+
+    }
 
     fun createPopularComponenet(): PopularSubComponent {
         popularMoviesComponent = mainComponent.plus(PopularMoviesModule())
@@ -51,5 +55,12 @@ class App: Application() {
     }
     fun releaseDetailsComponent() {
         movieDetailsComponent = null
+    }
+    fun createFavoritesComponent() : FavoritesSubComponent {
+        favoriteMoviesComponent = mainComponent.plus(FavoriteModule())
+        return favoriteMoviesComponent!!
+    }
+    fun releaseFavoritesComponent() {
+        favoriteMoviesComponent = null
     }
 }

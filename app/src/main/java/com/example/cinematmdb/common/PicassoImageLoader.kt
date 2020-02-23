@@ -23,7 +23,7 @@ class PicassoImageLoader(private val picasso: Picasso) : ImageLoader {
             delegate(true)
         }
 
-        override fun onError(e: Exception?) {
+        override fun onError() {
             delegate(false)
         }
 

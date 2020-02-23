@@ -7,96 +7,80 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.cinematmdb.R
+import com.example.cinematmdb.common.App
+import com.example.cinematmdb.common.BaseFragment
+import com.example.cinematmdb.common.ImageLoader
+import kotlinx.android.synthetic.main.fragment_favorite_movies.*
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class FavoriteMoviesFragment : BaseFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [FavoriteMoviesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [FavoriteMoviesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class FavoriteMoviesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    @Inject
+    lateinit var factory: FavoriteMoviesVMFactory
+    @Inject
+    lateinit var imageLoader: ImageLoader
+    private lateinit var viewModel: FavoriteMoviesViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var emptyMessage: TextView
+    private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        (activity?.application as App).createFavoritesComponent().inject(this)
+        viewModel = ViewModelProviders.of(this, factory).get(FavoriteMoviesViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_movies, container, false)
+    override fun onResume() {
+        super.onResume()
+        viewModel.getFavorites()
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoriteMoviesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoriteMoviesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.viewState.observe(this, Observer {
+            if (it != null) handleViewState(it)
+        })
+        viewModel.errorState.observe(this, Observer { throwable ->
+            throwable?.let {
+                Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
             }
+        })
+    }
+
+    private fun handleViewState(state: FavoritesMoviesViewState) {
+        progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
+        emptyMessage.visibility = if (!state.isLoading && state.isEmpty) View.VISIBLE else View.GONE
+        state.movies?.let { favoriteMoviesAdapter.setMovies(it) }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return layoutInflater.inflate(R.layout.fragment_favorite_movies, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        favoriteMoviesAdapter = FavoriteMoviesAdapter(imageLoader, { movie, view ->
+            navigateToMovieDetailsScreen(movie, view)
+        })
+        recyclerView = favorite_movies_recyclerview
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = favoriteMoviesAdapter
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity?.application as App).releaseFavoritesComponent()
     }
 }
