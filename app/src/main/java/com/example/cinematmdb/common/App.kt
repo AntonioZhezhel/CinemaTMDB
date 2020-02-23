@@ -2,6 +2,7 @@ package com.example.cinematmdb.common
 
 import android.app.Application
 import com.example.cinematmdb.R
+import com.example.cinematmdb.di.DaggerMainComponent
 import com.example.cinematmdb.di.MainComponent
 import com.example.cinematmdb.di.details.MovieDetailsModule
 import com.example.cinematmdb.di.details.MovieDetailsSubComponent

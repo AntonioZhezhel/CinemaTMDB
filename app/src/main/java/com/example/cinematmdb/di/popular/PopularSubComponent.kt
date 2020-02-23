@@ -6,9 +6,6 @@ import com.example.cinematmdb.popular.PopularMoviesFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [PopularMoviesModule::class])
-interface PopularSubComponent : MovieDetailsSubComponent {
+interface PopularSubComponent {
     fun inject(popularMoviesFragment: PopularMoviesFragment)
-    override fun inject(movieDetailsActivity: MovieDetailsActivity) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
