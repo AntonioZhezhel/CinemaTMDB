@@ -7,12 +7,25 @@ import com.example.cinematmdb.favorites.FavoriteMoviesFragment
 import com.example.cinematmdb.popular.PopularMoviesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var navigationBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, PopularMoviesFragment(), "popular")
+                .commitNow()
+            title = getString(R.string.popular)
+        }
+
+        navigationBar = bottomNavigationView
+        navigationBar.setOnNavigationItemSelectedListener(this)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
