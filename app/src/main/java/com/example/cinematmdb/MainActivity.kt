@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PopularMoviesFragment(), "popular")
+                .commit()
             title = getString(R.string.popular)
         }
 
@@ -29,18 +30,22 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-
+        if (item.itemId == navigationBar.selectedItemId) {
+            return false
+        }
         when (item.itemId) {
 
             R.id.action_popular -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, PopularMoviesFragment(), "popular")
+                    .commitNow()
                 title = getString(R.string.popular)
             }
 
             R.id.action_favorites -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, FavoriteMoviesFragment(), "favorites")
+                    .commitNow()
                 title = getString(R.string.my_favorites)
             }
 

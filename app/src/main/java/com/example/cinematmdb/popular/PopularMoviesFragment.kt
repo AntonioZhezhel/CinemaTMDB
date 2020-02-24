@@ -29,7 +29,6 @@ class PopularMoviesFragment : BaseFragment() {
     lateinit var imageLoader: ImageLoader
     private lateinit var viewModel: PopularMoviesViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var progressBar: ProgressBar
     private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +54,7 @@ class PopularMoviesFragment : BaseFragment() {
     }
 
     private fun handleViewState(state: PopularMoviesViewState) {
-        progressBar.visibility = if (state.showLoading) View.VISIBLE else View.GONE
+        //progressBar.visibility = if (state.showLoading) View.VISIBLE else View.GONE
         state.movies?.let { popularMoviesAdapter.addMovies(it) }
     }
 
@@ -65,10 +64,9 @@ class PopularMoviesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // progressBar = popular_movies_progress
-        popularMoviesAdapter = PopularMoviesAdapter(imageLoader, { movie, view ->
-            navigateToMovieDetailsScreen(movie, view)
-        })
+        popularMoviesAdapter = PopularMoviesAdapter(imageLoader) { movie, vieww ->
+            navigateToMovieDetailsScreen(movie, vieww)
+        }
         recyclerView = popular_movies_recyclerview
         recyclerView.layoutManager = GridLayoutManager(activity, 2)
         recyclerView.adapter = popularMoviesAdapter

@@ -16,7 +16,7 @@ class PopularMoviesAdapter constructor(private val imageLoader: ImageLoader,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieCellViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(
+        val view = LayoutInflater.from(parent.context).inflate(
             R.layout.popular_movies_adapter_cell,
             parent,
             false)
@@ -29,7 +29,7 @@ class PopularMoviesAdapter constructor(private val imageLoader: ImageLoader,
 
     override fun onBindViewHolder(holder: MovieCellViewHolder, position: Int) {
         val movie = movies[position]
-        holder?.bind(movie, imageLoader, onMovieSelected)
+        holder.bind(movie, imageLoader, onMovieSelected)
     }
 
     fun addMovies(movies: List<Movie>) {
