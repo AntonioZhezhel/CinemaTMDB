@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PopularMoviesFragment(), "popular")
-                .commitNow()
             title = getString(R.string.popular)
         }
 
@@ -36,14 +35,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.action_popular -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, PopularMoviesFragment(), "popular")
-                    .commitNow()
                 title = getString(R.string.popular)
             }
 
             R.id.action_favorites -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, FavoriteMoviesFragment(), "favorites")
-                    .commitNow()
                 title = getString(R.string.my_favorites)
             }
 

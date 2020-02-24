@@ -41,7 +41,7 @@ class PopularMoviesAdapter constructor(private val imageLoader: ImageLoader,
         fun bind(movie: Movie, imageLoader: ImageLoader, listener: (Movie, View) -> Unit) = with(itemView) {
             title.text = movie.originalTitle
             movie.posterPath?.let { imageLoader.load(it, image) }
-           // setOnClickListener { listener(movie, itemView) }
+            setOnClickListener { listener(movie, itemView) }
         }
 
     }
