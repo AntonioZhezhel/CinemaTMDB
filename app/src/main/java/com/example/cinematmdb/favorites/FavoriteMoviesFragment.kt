@@ -30,8 +30,6 @@ class FavoriteMoviesFragment : BaseFragment() {
     lateinit var imageLoader: ImageLoader
     private lateinit var viewModel: FavoriteMoviesViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var progressBar: ProgressBar
-    private lateinit var emptyMessage: TextView
     private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,8 +57,6 @@ class FavoriteMoviesFragment : BaseFragment() {
     }
 
     private fun handleViewState(state: FavoritesMoviesViewState) {
-        progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
-        emptyMessage.visibility = if (!state.isLoading && state.isEmpty) View.VISIBLE else View.GONE
         state.movies?.let { favoriteMoviesAdapter.setMovies(it) }
     }
 

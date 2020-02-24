@@ -38,14 +38,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.action_popular -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, PopularMoviesFragment(), "popular")
-                    .commitNow()
+                    .commit()
                 title = getString(R.string.popular)
             }
 
             R.id.action_favorites -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, FavoriteMoviesFragment(), "favorites")
-                    .commitNow()
+                    .commit()
                 title = getString(R.string.my_favorites)
             }
 
