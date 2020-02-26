@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/details_root_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        tools:ignore="MissingConstraints">
+       >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/generic_margin"
                 android:layout_marginLeft="@dimen/generic_margin"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/circle"
                 android:padding="3dp"
                 android:src="@drawable/ic_arrow_back_white_24dp"
@@ -49,8 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintTop_toBottomOf="@+id/details_appbar"
-        tools:ignore="MissingConstraints">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -129,7 +128,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_star_rate_white_18dp"
-                    android:tint="#BEB49C" />
+                    android:tint="#E91E63" />
 
                 <TextView
                     android:id="@+id/details_score"
@@ -173,9 +172,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/details_poster"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/generic_margin"
                 android:layout_marginTop="@dimen/sections_margin"
                 android:layout_marginEnd="@dimen/generic_margin"
+                android:layout_marginBottom="1dp"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -193,7 +194,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
